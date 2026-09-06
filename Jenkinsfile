@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Alshammarii555/8.2CDevSecOps.git'
+                git branch: 'main',
+                    url: 'https://github.com/Alshammarii555/8.2CDevSecOps.git'
             }
         }
 
@@ -33,6 +34,22 @@ pipeline {
         stage('NPM Audit (Security Scan)') {
             steps {
                 sh 'npm audit || true'
+            }
+        }
+
+        stage('SonarCloud Analysis') {
+            steps {
+                withCredentials([
+                    string(
+                        credentialsId: 'SONAR_TOKEN',
+                        variable: 'SONAR_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        sonar-scanner \
+                        -Dsonar.token="$SONAR_TOKEN"
+                    '''
+                }
             }
         }
     }
