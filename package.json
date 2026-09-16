@@ -12,7 +12,7 @@
     "start": "NODE_OPTIONS=--openssl-legacy-provider node app.js",
     "build": "browserify -r jquery > public/js/bundle.js",
     "cleanup": "mongo express-todo --eval 'db.todos.remove({});'",
-    "test": "node --test tests/utils.test.js",
+    "test": "c8 --reporter=text --reporter=lcov node --test tests/utils.test.js",
     "security": "snyk test"
   },
   "dependencies": {
@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "browserify": "^13.1.1",
+    "c8": "^12.0.0",
     "nodemon": "^2.0.7",
     "snyk": "^1.244.0"
   },
