@@ -89,6 +89,7 @@ pipeline {
                         --retry 10 \
                         --retry-delay 3 \
                         --retry-connrefused \
+                        --retry-all-errors \
                         "$APP_URL"
                 '''
             }
